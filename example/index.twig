@@ -21,7 +21,12 @@
       class: 'js-foo',
       'data-foo': mock.foo_prop
     },
-    data: mock|remap(['article_title:title', 'article_text:description'], { discardUnmentioned: true })
-  } only %}
+    data: mock|remap([
+      'article_title:title',
+      'article_text:description'
+    ], {
+      discardUnmentioned: true
+    })
+  } %}
 </body>
 </html>

@@ -69,10 +69,11 @@ Source
 ```json
 // mock
 {
-  "article_id": "foo",
+  "article_id": "post-1",
+  "article_type": "news",
   "article_title": "Lorem ipsum.",
   "article_text": "Ea duis sint ad ipsum in dolor quis consequat.",
-  "foo_prop": "foo"
+  "article_category": "foo"
 }
 ```
 
@@ -88,7 +89,9 @@ Source
 {% set data = mock|remap([
   'article_title:title',
   'article_text:description'
-], { discardUnmentioned: true }) %}
+], {
+  discardUnmentioned: true
+}) %}
 
 <main>
   {% include 'components/article.twig' with data %}
@@ -138,20 +141,31 @@ The *options* argument supports the following properties:
 __Usage__:
 
 Source
+```json
+// mock
+{
+  "article_id": "post-1",
+  "article_type": "news",
+  "article_title": "Lorem ipsum.",
+  "article_text": "Ea duis sint ad ipsum in dolor quis consequat.",
+  "article_category": "foo"
+}
+```
+
 ```twig
-{# components/box.twig #}
-<div {{ componentAttributes('box', _context) }}>
+{# components/article.twig #}
+<article {{ componentAttributes('article', _context) }}>
   <!-- content -->
-</div>
+</article>
 
 {# templates/page.twig #}
 <main>
-  {% include 'components/box.twig' with {
-    variants: ['primary'],
+  {% include 'components/article.twig' with {
+    variants: ['featured'],
     attributes: {
-      id: 'foo',
-      class: 'js-foo',
-      'data-foo': 'bar'
+      id: mock.article_id,
+      class: mock.article_type,
+      'data-category': mock.article_category
     }
   } only %}
 </main>
@@ -159,8 +173,8 @@ Source
 Result
 ```html
 <main>
-  <div class="box box--primary js-foo" id="foo" data-foo="bar">
+  <article class="article article--featured news" id="post-1" data-category="foo">
     <!-- content -->
-  </div>
+  </article>
 </main>
 ```
