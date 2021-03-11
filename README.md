@@ -11,7 +11,21 @@ A collection of filters and functions for Twig (JS)
 npm i @fiad/twig-addons
 ```
 
-### Usage (example with Express)
+### Usage
+
+#### Basic
+```js
+import twig from 'twig'
+import twigAddons from '@fiad/twig-addons'
+
+const engine = twigAddons(twig)
+
+engine.renderFile('path/to/template.twig', { foo: 'bar' }, (err, html) => {
+  fs.writeFileSync('path/to/template.html', html)
+})
+```
+
+#### With Express
 ```js
 import express from 'express'
 import twig from 'twig'
@@ -48,6 +62,48 @@ The *options* argument supports the following properties:
 | --- | --- | --- |
 | discardUnmentioned | If *true*, any properties not included in the *keys* argument will be omitted from the returned object | *false* |
 
+
+__Usage__:
+
+Source
+```json
+// mock
+{
+  "article_id": "foo",
+  "article_title": "Lorem ipsum.",
+  "article_text": "Ea duis sint ad ipsum in dolor quis consequat.",
+  "foo_prop": "foo"
+}
+```
+
+```twig
+{# components/article.twig #}
+<article>
+  <h1>{{ title }}</h1>
+  <p>{{ description }}</p>
+</article>
+
+
+{# templates/page.twig #}
+{% set data = mock|remap([
+  'article_title:title',
+  'article_text:description'
+], { discardUnmentioned: true }) %}
+
+<main>
+  {% include 'components/article.twig' with data %}
+</main>
+```
+
+Result
+```html
+<main>
+  <article>
+    <h1>Lorem ipsum.</h1>
+    <p>Ea duis sint ad ipsum in dolor quis consequat.</p>
+  </article>
+</main>
+```
 
 ## Functions list
 
