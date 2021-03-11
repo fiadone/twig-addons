@@ -1,0 +1,33 @@
+{
+  "name": "@fiad/twig-addons",
+  "version": "1.0.0",
+  "description": "A collection of filters and functions for Twig (JS)",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiadone/twig-addons.git"
+  },
+  "keywords": [
+    "twig",
+    "addons"
+  ],
+  "author": "Andrea 'Fiad' Fiadone",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fiadone/twig-addons/issues"
+  },
+  "homepage": "https://github.com/fiadone/twig-addons",
+  "scripts": {
+    "test": "babel-node ./example/index.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/node": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "twig": "^1.15.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

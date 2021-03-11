@@ -1,0 +1,27 @@
+{% set mock = {
+  article_id: 'foo',
+  article_title: 'Lorem ipsum.',
+  article_text: 'Ea duis sint ad ipsum in dolor quis consequat.',
+  foo_prop: 'foo'
+} %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twig Addons Test</title>
+</head>
+<body>
+  {% include './article.twig' with {
+    variants: ['featured'],
+    attributes: {
+      id: mock.article_id,
+      class: 'js-foo',
+      'data-foo': mock.foo_prop
+    },
+    data: mock|remap(['article_title:title', 'article_text:description'], { discardUnmentioned: true })
+  } only %}
+</body>
+</html>
