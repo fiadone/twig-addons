@@ -167,7 +167,7 @@ Source
       class: mock.article_type,
       'data-category': mock.article_category
     }
-  } only %}
+  } %}
 </main>
 ```
 Result
