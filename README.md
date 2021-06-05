@@ -108,34 +108,21 @@ Result
 </main>
 ```
 
+
 ## Functions list
 
-### componentAttributes
-It provides a standard parametric system to pass attributes to a component directly from the *include* statement and to dynamically build its variant-based modificator classes.
+### tag_attributes
+It dynamically builds the stringified attributes list of an html tag starting from a key-value object. It supports you in adopting a standard and comfortable parametric system to pass attributes to a component directly from the *include* statement.
 
 __Definition__:
 ```js
-componentAttributes(baseClass, context, options)
+tag_attributes(attributes, defaults)
 ```
 
 | Argument | Description |
 | --- | --- |
-| baseClass | The base CSS selector used to identify the component |
-| context | The parameters passed to the twig partial through the *include* statement |
-| options | A configuration object containing additional  settings |
-
-
-The *context* argument is supposed to contain, between the others, the following properties:
-| Property | Description |
-| --- | --- |
-| variants | An optional array of modificators to build the component CSS classes |
-| attributes | An object containing a key/value entry for each attribute wanted to be appended to the component wrapper tag |
-
-
-The *options* argument supports the following properties:
-| Property | Description | Default |
-| --- | --- | --- |
-| modifierSeparator | The separator used to concatenate the base class with the variant-based modificator | *-- (BEM like)* |
+| attributes | The attributes object to be parsed |
+| defaults (optional) | The default attributes to extend, useful when you need to merge with some predefined properties (use this argument instead of *Twig* built-in *merge* filter to ensure proper attribute parsing) |
 
 
 __Usage__:
@@ -144,37 +131,35 @@ Source
 ```json
 // mock
 {
-  "article_id": "post-1",
-  "article_type": "news",
-  "article_title": "Lorem ipsum.",
-  "article_text": "Ea duis sint ad ipsum in dolor quis consequat.",
-  "article_category": "foo"
+  "link": {
+    "label": "Lorem ipsum",
+    "attributes": {
+      "class": "link--primary",
+      "href": "https://domain.ext/slug",
+      "target": "_blank"
+    }
+  }
 }
 ```
 
 ```twig
-{# components/article.twig #}
-<article {{ componentAttributes('article', _context) }}>
-  <!-- content -->
-</article>
+{# components/link.twig #}
 
-{# templates/page.twig #}
-<main>
-  {% include 'components/article.twig' with {
-    variants: ['featured'],
-    attributes: {
-      id: mock.article_id,
-      class: mock.article_type,
-      'data-category': mock.article_category
-    }
-  } %}
-</main>
+{% set defaults = {
+  class: 'link',
+  target: '_self'
+} %}
+
+<a {{ tag_attributes(attributes, defaults) }}>
+  <span class="link__label">{{ label }}</span>
+</a>
 ```
+
 Result
 ```html
-<main>
-  <article class="article article--featured news" id="post-1" data-category="foo">
-    <!-- content -->
-  </article>
-</main>
+<a class="link link--primary" href="https://domain.ext/slug" target="_blank">
+  <span class="link__label">Lorem ipsum</span>
+</a>
 ```
+
+> ℹ️ Please note that the default *class* attribute wasn't overridden, as did the *target* one instead, but the default value and the overriding one have been concatenated. This is to avoid the accidental breaking of some of the component basic styles and behaviors associated with the default class(es) eventually defined within the component partial.

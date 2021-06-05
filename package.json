@@ -1,6 +1,6 @@
 {
   "name": "@fiad/twig-addons",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A collection of filters and functions for Twig (JS)",
   "main": "index.js",
   "repository": {
@@ -29,5 +29,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "dependencies": {}
 }
