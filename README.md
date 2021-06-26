@@ -111,6 +111,14 @@ Result
 
 ## Functions list
 
+### html_classes
+A porting of *Twig*'s *html_classes*. Look at the [official documentation](https://twig.symfony.com/doc/2.x/functions/html_classes.html) to learn more about usage.
+
+__Definition__:
+```js
+html_classes(...classes)
+```
+
 ### tag_attributes
 It dynamically builds the stringified attributes list of an html tag starting from a key-value object. It supports you in adopting a standard and comfortable parametric system to pass attributes to a component directly from the *include* statement.
 
