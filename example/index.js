@@ -5,6 +5,10 @@ import twigAddons from '../'
 const engine = twigAddons(twig)
 const cwd = process.cwd()
 
-engine.renderFile(`${cwd}/test/index.twig`, {}, (err, html) => {
-  fs.writeFileSync(`${cwd}/test/index.html`, html)
+engine.renderFile(`${cwd}/example/index.twig`, {}, (err, html) => {
+  if (err) {
+    console.log(err)
+  } else {
+    fs.writeFileSync(`${cwd}/example/index.html`, html)
+  }
 })

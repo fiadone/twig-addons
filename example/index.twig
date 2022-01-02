@@ -15,7 +15,6 @@
 </head>
 <body>
   {% include './article.twig' with {
-    variants: ['featured'],
     attributes: {
       id: mock.article_id,
       class: 'js-foo',
@@ -26,6 +25,16 @@
       'article_text:description'
     ], {
       discardUnmentioned: true
+    })|merge({
+      guests: [
+        { "firstname": "John", "lastname": "Doe" },
+        { "firstname": "Jane", "lastname": "Doe" }
+      ],
+      cart: [
+        { "price": 10 },
+        { "price": 20 },
+        { "price": 15 }
+      ]
     })
   } %}
 </body>

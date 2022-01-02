@@ -38,6 +38,84 @@ app.engine('twig', twigAddons(twig).__express)
 
 ## Filters list
 
+### map
+A porting of *JavaScript*'s [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
+
+__Definition__:
+```js
+map(values, args)
+```
+
+| Argument | Description | Type |
+| --- | --- | --- |
+| values | The original values | *array* |
+| args | The array of arguments passed to the filter | *array* |
+
+Here below the supported filter arguments:
+| Argument | Description | Type |
+| --- | --- | --- |
+| handler | The mapping handler | *string* |
+
+> ℹ️ Please note that the *handler* argument should be a stringified arrow function evaluable by *eval()*.
+
+__Usage__:
+```json
+// mock
+{
+  "guests": [
+    { "firstname": "John", "lastname": "Doe", /* ... */ },
+    { "firstname": "Jane", "lastname": "Doe", /* ... */ }
+  ]
+}
+```
+```twig
+<p class="guests">
+  {{ guests|map('({ firstname, lastname }) => `${firstname} ${lastname}`')|join(', ') }}
+</p>
+```
+
+> ⚠️ Since this filter involves the usage of *eval()*, it's recommended to use it for static sites generation purposes only, so that the stringified *JavaScript* execution will be limited to the development environment. Look [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!) to learn more.
+
+### reduce
+A porting of *JavaScript*'s [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce).
+
+__Definition__:
+```js
+reduce(values, args)
+```
+
+| Argument | Description | Type |
+| --- | --- | --- |
+| values | The original values | *array* |
+| args | The array of arguments passed to the filter | *array* |
+
+Here below the supported filter arguments:
+| Argument | Description | Type |
+| --- | --- | --- |
+| reducer | The reducing handler | *string* |
+| carry | The initial reduced value | *any* |
+
+> ℹ️ Please note that the *reducer* argument should be a stringified arrow function evaluable by *eval()*.
+
+__Usage__:
+```json
+// mock
+{
+  "cart": [
+    { "price": 10, /* ... */ },
+    { "price": 20, /* ... */ },
+    { "price": 15, /* ... */ }
+  ]
+}
+```
+```twig
+<p class="total">
+  {{ cart|reduce('(total, { price }) => (total + price)', 0) }} €
+</p>
+```
+
+> ⚠️ Since this filter involves the usage of *eval()*, it's recommended to use it for static sites generation purposes only, so that the stringified *JavaScript* execution will be limited to the development environment. Look [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!) to learn more.
+
 ### remap
 It allows you to remap an object with different keys and eventually discard its needless properties.
 

@@ -1,4 +1,10 @@
-<article {{ componentAttributes('article', _context) }}>
+<article {{ tag_attributes(attributes) }}>
   <h1>{{ data.title }}</h1>
   <p>{{ data.description }}</p>
+  <p class="guests">
+    {{ data.guests|map('({ firstname, lastname }) => `${firstname} ${lastname}`')|join(', ') }}
+  </p>
+  <p class="total">
+    {{ data.cart|reduce('(total, { price }) => (total + price)', 0) }} €
+  </p>
 </article>
