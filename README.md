@@ -2,7 +2,6 @@
 
 A collection of filters and functions for Twig (JS)
 
----
 
 ## Get started
 
@@ -58,6 +57,7 @@ Here below the supported filter arguments:
 
 > ℹ️ Please note that the *handler* argument should be a stringified arrow function evaluable by *eval()*.
 
+
 __Usage__:
 ```json
 // mock
@@ -75,6 +75,7 @@ __Usage__:
 ```
 
 > ⚠️ Since this filter involves the usage of *eval()*, it's recommended to use it for static sites generation purposes only, so that the stringified *JavaScript* execution will be limited to the development environment. Look [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!) to learn more.
+
 
 ### reduce
 A porting of *JavaScript*'s [Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce).
@@ -97,6 +98,7 @@ Here below the supported filter arguments:
 
 > ℹ️ Please note that the *reducer* argument should be a stringified arrow function evaluable by *eval()*.
 
+
 __Usage__:
 ```json
 // mock
@@ -115,6 +117,7 @@ __Usage__:
 ```
 
 > ⚠️ Since this filter involves the usage of *eval()*, it's recommended to use it for static sites generation purposes only, so that the stringified *JavaScript* execution will be limited to the development environment. Look [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!) to learn more.
+
 
 ### remap
 It allows you to remap an object with different keys and eventually discard its needless properties.
@@ -196,6 +199,7 @@ __Definition__:
 ```js
 html_classes(...classes)
 ```
+
 
 ### tag_attributes
 It dynamically builds the stringified attributes list of an html tag starting from a key-value object. It supports you in adopting a standard and comfortable parametric system to pass attributes to a component directly from the *include* statement.
